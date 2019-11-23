@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+service Calendar {
+    rpc AddEvent (Event) returns (EventId) {}
+    rpc UpdateEvent (EventUpdateInfo) returns (EventId) {}
+    rpc DeleteEvent (EventId) returns (EventId){}
+    rpc GetEvents (GetEventsRequest) returns (EventList){}
+}
+
+message Event {
+    google.protobuf.Timestamp start = 1;
+    google.protobuf.Timestamp end = 2;
+    string payload = 3;
+}
+
+message GetEventsRequest {}
+
+message EventList {
+    repeated Event events = 1;
+}
+
+message EventUpdateInfo {
+    uint32 eventId = 1;
+    Event event = 2;
+}
+
+message EventId {
+     uint32 id = 1;
+}
